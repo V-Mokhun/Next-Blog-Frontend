@@ -5,6 +5,15 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "noImplicitAny": true, 
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,              
+    "noUnusedLocals": true, 
+    "noUnusedParameters": true,                 
+    "noImplicitReturns": true,                  
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -13,8 +22,17 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./",
+    "paths": {
+      // "@/app/*": ["src/app/*"],
+      // "@/pages/*": ["src/pages/*"],
+      // "@/widgets/*": ["src/widgets/*"],
+      // "@/features/*": ["src/features/*"],
+      // "@/entities/*": ["src/entities/*"],
+      // "@/shared/*": ["src/shared/*"],
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "custom.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
