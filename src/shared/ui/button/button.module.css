@@ -1,0 +1,24 @@
+.button {
+  @apply rounded-3xl inline-block transition-colors disabled:opacity-25;
+}
+
+.variantSolidPrimary {
+  @apply text-white bg-dark-400 hover:bg-dark-500;
+}
+
+.variantSolidSecondary {
+  @apply text-white bg-green-400 hover:bg-green-500;
+}
+
+.variantOutlinePrimary,
+.variantOutlineSecondary {
+  @apply bg-white text-primary border;
+}
+
+.variantOutlinePrimary {
+  @apply border-secondary hover:border-primary;
+}
+
+.variantOutlineSecondary {
+  @apply border-green-400 hover:border-green-500;
+}

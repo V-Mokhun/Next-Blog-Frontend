@@ -1,3 +1,75 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  src: url("/fonts/georgia/Georgia-Regular.woff2") format("woff2");
+  font-family: "Georgia";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/georgia/Georgia-Itali  c.woff2") format("woff2");
+  font-family: "Georgia";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/georgia/Georgia-Bold.woff2") format("woff2");
+  font-family: "Georgia";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/helvetica/HelveticaNeue-Regular.woff2") format("woff2");
+  font-family: "HelveticaNeue";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/helvetica/HelveticaNeue-Italic.woff2") format("woff2");
+  font-family: "HelveticaNeue";
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/helvetica/HelveticaNeue-Light.woff2") format("woff2");
+  font-family: "HelveticaNeue";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/helvetica/HelveticaNeue-Medium.woff2") format("woff2");
+  font-family: "HelveticaNeue";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/helvetica/HelveticaNeue-Bold.woff2") format("woff2");
+  font-family: "HelveticaNeue";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  src: url("/fonts/helvetica/HelveticaNeue-Black.woff2") format("woff2");
+  font-family: "HelveticaNeue";
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

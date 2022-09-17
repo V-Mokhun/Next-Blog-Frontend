@@ -1,7 +1,14 @@
 import type { NextPage } from "next";
+import { Button } from "src/shared/ui";
 
 const Home: NextPage = () => {
-  return <div className="bg-slate-600 w-12 h-12">home</div>;
+  return (
+    <div className="white mx-4 my-3">
+      <Button color="primary" variant="outline">
+        Write on Medium
+      </Button>
+    </div>
+  );
 };
 
 export default Home;
