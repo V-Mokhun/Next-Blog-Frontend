@@ -7,9 +7,12 @@ module.exports = {
       colors: {
         transparent: "transparent",
         current: "currentColor",
-        primary: "#292929",
-        secondary: "#757575",
-        dark: { 400: "#191919", 500: "#080808" },
+        primary: "#292929", // rgb(41,41,41)
+        secondary: "#757575", // rgb(117, 117, 117)
+        dark: {
+          400: "#191919", // rgb(25,25,25)
+          500: "#080808", // rgb(8,8,8)
+        },
         green: { 400: "#1a8917", 500: "#0f730c" },
       },
       screens: {
@@ -25,5 +28,5 @@ module.exports = {
       padding: "1.5rem",
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

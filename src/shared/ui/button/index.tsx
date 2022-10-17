@@ -7,7 +7,7 @@ interface Props {
   className?: string;
   children?: React.ReactNode;
   color?: "primary" | "secondary";
-  variant?: "solid" | "outline";
+  variant?: "solid" | "outline" | "transparent";
   size?: "small" | "normal";
   weight?: "normal" | "medium" | "bold";
   smallOnMobile?: boolean;
@@ -48,6 +48,7 @@ export const Button = ({
     "font-bold": weight === "bold",
     "px-4 py-2 text-sm": size === "normal",
     "px-2 py-1 text-xs": size === "small",
+    "px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm": smallOnMobile,
     [styles.variantSolidPrimary]: color === "primary" && variant === "solid",
     [styles.variantSolidSecondary]:
       color === "secondary" && variant === "solid",
@@ -55,9 +56,11 @@ export const Button = ({
       color === "primary" && variant === "outline",
     [styles.variantOutlineSecondary]:
       color === "secondary" && variant === "outline",
-    "px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm": smallOnMobile,
+    [styles.variantTransparentPrimary]:
+      color === "primary" && variant === "transparent",
+    [styles.variantTransparentSecondary]:
+      color === "secondary" && variant === "transparent",
   });
-  console.log(classes);
 
   if (as === "link") {
     return (

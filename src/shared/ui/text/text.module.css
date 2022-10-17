@@ -1,0 +1,3 @@
+.text {
+  @apply text-ellipsis line-clamp-3;
+}
