@@ -45,18 +45,26 @@ export const Header = ({}: HeaderProps) => {
                   <Link href={link.href}>{link.text}</Link>
                 </li>
               ))}
-              <AuthModal>
-                <li className="hidden xs:inline-block">
-                  <DialogTrigger asChild>
-                    <Button variant="text">Sign in</Button>
-                  </DialogTrigger>
-                </li>
-                <li>
-                  <DialogTrigger asChild>
-                    <Button>Get Started</Button>
-                  </DialogTrigger>
-                </li>
-              </AuthModal>
+              <AuthModal
+                render={(setMode) => (
+                  <>
+                    <li className="hidden xs:inline-block">
+                      <DialogTrigger asChild>
+                        <Button onClick={() => setMode("login")} variant="text">
+                          Sign in
+                        </Button>
+                      </DialogTrigger>
+                    </li>
+                    <li>
+                      <DialogTrigger asChild>
+                        <Button onClick={() => setMode("register")}>
+                          Get Started
+                        </Button>
+                      </DialogTrigger>
+                    </li>
+                  </>
+                )}
+              ></AuthModal>
             </ul>
           </nav>
         </div>

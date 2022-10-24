@@ -43,6 +43,7 @@ export const Button = ({
 }: ButtonProps) => {
   const classes = clsx(className, {
     [styles.button]: true,
+    "inline-block": true,
     "font-normal": weight === "normal",
     "font-medium": weight === "medium",
     "font-bold": weight === "bold",
