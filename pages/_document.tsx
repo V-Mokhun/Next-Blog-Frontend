@@ -3,7 +3,7 @@ import Document, { Head, Html, Main, NextScript } from "next/document";
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html className="h-full" lang="en">
         <Head>
           <link
             rel="preload"
@@ -70,7 +70,7 @@ export default class MyDocument extends Document {
             crossOrigin=""
           />
         </Head>
-        <body className="font-helvetica bg-white">
+        <body className="font-helvetica bg-white h-full">
           <Main />
           <NextScript />
         </body>

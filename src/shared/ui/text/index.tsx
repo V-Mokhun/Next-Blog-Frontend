@@ -8,7 +8,7 @@ interface TextProps extends HTMLAttributes<HTMLOrSVGElement> {
   className?: string;
   weight?: "normal" | "medium" | "bold";
   color?: "secondary" | "primary";
-  size?: "base" | "xs" | "small" | "medium";
+  size?: "base" | "xs" | "small" | "medium" | "large";
 }
 
 export const Text = ({
@@ -30,6 +30,7 @@ export const Text = ({
     "text-sm": size === "small",
     "text-base": size === "base",
     "text-lg": size === "medium",
+    "text-xl": size === "large",
   });
 
   return <Tag className={classes}>{children}</Tag>;
