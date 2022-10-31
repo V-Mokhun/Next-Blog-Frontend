@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogRoot, Icon, Text, Title } from "@/shared/ui";
 import React, { useState } from "react";
-import { EmailContent } from "./EmailContent";
+import { EmailContent } from "./email-content";
 
 interface AuthModalProps {
   render?: (
@@ -15,11 +15,15 @@ export const AuthModal = ({ render }: AuthModalProps) => {
   const [mode, setMode] = useState<AuthenticationMode>("login");
   const [isEmail, setIsEmail] = useState(false);
 
+  const goBack = () => {
+    setIsEmail(false);
+  };
+
   return (
     <DialogRoot open={open} onOpenChange={setOpen}>
       <Dialog>
         {isEmail ? (
-          <EmailContent mode={mode} />
+          <EmailContent mode={mode} goBack={goBack} />
         ) : (
           <div className="flex flex-1 flex-col justify-between h-full items-center my-5">
             <Title
@@ -42,11 +46,13 @@ export const AuthModal = ({ render }: AuthModalProps) => {
                     className="flex items-center gap-1 flex-1 w-full"
                     variant="outline"
                   >
-                    <Icon name="facebook" /> Sign in with Facebook
+                    <Icon name="facebook" className="fill-blue-800" /> Sign in
+                    with Facebook
                   </Button>
                   <Button
                     className="flex items-center gap-1 flex-1 w-full"
                     variant="outline"
+                    onClick={() => setIsEmail(true)}
                   >
                     <Icon name="email" /> Sign in with Email
                   </Button>
@@ -63,11 +69,13 @@ export const AuthModal = ({ render }: AuthModalProps) => {
                     className="flex items-center gap-1 flex-1 w-full"
                     variant="outline"
                   >
-                    <Icon name="facebook" /> Sign up with Facebook
+                    <Icon name="facebook" className="fill-blue-800" /> Sign up
+                    with Facebook
                   </Button>
                   <Button
                     className="flex items-center gap-1 flex-1 w-full"
                     variant="outline"
+                    onClick={() => setIsEmail(true)}
                   >
                     <Icon name="email" /> Sign up with Email
                   </Button>

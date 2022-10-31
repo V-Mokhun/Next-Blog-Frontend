@@ -9,11 +9,15 @@ module.exports = {
         current: "currentColor",
         primary: "#292929", // rgb(41,41,41)
         secondary: "#757575", // rgb(117, 117, 117)
+        error: "#c94a4a",
         dark: {
           400: "#191919", // rgb(25,25,25)
           500: "#080808", // rgb(8,8,8)
         },
         green: { 400: "#1a8917", 500: "#0f730c" },
+        gray: {
+          400: "#a8a8a8", // rgb(168,168,168)
+        },
       },
       screens: {
         xs: "479px",

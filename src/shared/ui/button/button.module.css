@@ -2,6 +2,10 @@
   @apply rounded-3xl transition-all duration-500 disabled:opacity-25;
 }
 
+.disabled {
+  @apply opacity-25 cursor-not-allowed;
+}
+
 .variantText {
   @apply p-0 hover:underline;
 }

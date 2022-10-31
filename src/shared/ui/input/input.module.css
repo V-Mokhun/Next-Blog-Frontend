@@ -1,0 +1,11 @@
+.input {
+  @apply outline-none w-full text-primary placeholder:text-inherit border-gray-400 focus:border-primary;
+}
+
+.outlined {
+  @apply border rounded-md p-2;
+}
+
+.underlined {
+  @apply border-b p-1 pr-6;
+}

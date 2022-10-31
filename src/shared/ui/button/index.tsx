@@ -10,6 +10,7 @@ interface Props {
   variant?: "solid" | "outline" | "transparent" | "text";
   size?: "small" | "normal";
   weight?: "normal" | "medium" | "bold";
+  isDisabled?: boolean;
   smallOnMobile?: boolean;
 }
 
@@ -39,6 +40,7 @@ export const Button = ({
   smallOnMobile = false,
   size = "normal",
   as,
+  isDisabled = false,
   ...props
 }: ButtonProps) => {
   const classes = clsx(className, {
@@ -50,6 +52,7 @@ export const Button = ({
     "px-4 py-2 text-sm": size === "normal",
     "px-2 py-1 text-xs": size === "small",
     "px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-sm": smallOnMobile,
+    [styles.disabled]: isDisabled,
     [styles.variantText]: variant === "text",
     [styles.variantSolidPrimary]: color === "primary" && variant === "solid",
     [styles.variantSolidSecondary]:
@@ -87,6 +90,7 @@ export const Button = ({
 
   return (
     <button
+      disabled={isDisabled}
       className={classes}
       type="button"
       {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)}
