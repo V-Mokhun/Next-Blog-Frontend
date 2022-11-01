@@ -1,16 +1,12 @@
+import { SignUpValues, userApi } from "@/shared/api";
 import { Button, Input } from "@/shared/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-interface SignUpFormProps {}
-
-type FormValues = {
-  email: string;
-  name: string;
-  username: string;
-  password: string;
-};
+interface SignUpFormProps {
+  closeModal: () => void;
+}
 
 const schema = yup
   .object({
@@ -31,16 +27,28 @@ const schema = yup
   })
   .required();
 
-export const SignUpForm = ({}: SignUpFormProps) => {
+export const SignUpForm = ({ closeModal }: SignUpFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isValid, isSubmitted },
-  } = useForm<FormValues>({
+    formState: {
+      errors,
+      isSubmitting,
+      isValid,
+      isSubmitted,
+      isSubmitSuccessful,
+    },
+  } = useForm<SignUpValues>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormValues) => {};
+  const onSubmit = async (data: SignUpValues) => {
+    await userApi.signUp(data);
+  };
+
+  // if (isSubmitSuccessful) {
+  //   closeModal();
+  // }
 
   return (
     <form

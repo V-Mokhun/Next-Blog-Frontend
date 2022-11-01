@@ -19,11 +19,15 @@ export const AuthModal = ({ render }: AuthModalProps) => {
     setIsEmail(false);
   };
 
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   return (
     <DialogRoot open={open} onOpenChange={setOpen}>
       <Dialog>
         {isEmail ? (
-          <EmailContent mode={mode} goBack={goBack} />
+          <EmailContent closeModal={closeModal} mode={mode} goBack={goBack} />
         ) : (
           <div className="flex flex-1 flex-col justify-between h-full items-center my-5">
             <Title

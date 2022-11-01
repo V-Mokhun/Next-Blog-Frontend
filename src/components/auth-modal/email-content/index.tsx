@@ -6,9 +6,14 @@ import { SignUpForm } from "./SignUpForm";
 interface EmailContentProps {
   mode: AuthenticationMode;
   goBack: () => void;
+  closeModal: () => void;
 }
 
-export const EmailContent = ({ mode, goBack }: EmailContentProps) => {
+export const EmailContent = ({
+  mode,
+  goBack,
+  closeModal,
+}: EmailContentProps) => {
   return (
     <div className="flex flex-1 flex-col justify-center h-full max-w-[70%] items-center my-5">
       <Title
@@ -23,7 +28,11 @@ export const EmailContent = ({ mode, goBack }: EmailContentProps) => {
           ? "Enter your email and password to sign in to your account"
           : "Enter your email address, name, username and password to create an account."}
       </Text>
-      {mode === "login" ? <LogInForm /> : <SignUpForm />}
+      {mode === "login" ? (
+        <LogInForm />
+      ) : (
+        <SignUpForm closeModal={closeModal} />
+      )}
       <Button
         onClick={goBack}
         variant="text"
