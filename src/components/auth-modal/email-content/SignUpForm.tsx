@@ -1,7 +1,7 @@
 import { SignUpValues, userApi } from "@/shared/api";
+import { catchError } from "@/shared/lib";
 import { Button, Input, Toast } from "@/shared/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { AxiosError } from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -57,20 +57,17 @@ export const SignUpForm = ({ handleRegister }: SignUpFormProps) => {
     resolver: yupResolver(schema),
   });
 
-  //! TOAST
-  const [error, setError] = useState("Network error");
+  const [error, setError] = useState("");
   const [toastOpen, setToastOpen] = useState(false);
 
   const onSubmit = async (data: SignUpValues) => {
     try {
       await userApi.signUp(data);
       handleRegister();
+      setToastOpen(false);
     } catch (err) {
-      if (typeof err === "string") {
-        setError(err);
-      } else if (err instanceof AxiosError) {
-        setError(err.message);
-      }
+      catchError(err, setError);
+      setToastOpen(true);
     }
   };
 
@@ -100,7 +97,6 @@ export const SignUpForm = ({ handleRegister }: SignUpFormProps) => {
           Sign up
         </Button>
       </form>
-      <button onClick={() => setToastOpen(true)}>open</button>
       {toastOpen && (
         <Toast open={toastOpen} setOpen={setToastOpen} title={error} />
       )}
