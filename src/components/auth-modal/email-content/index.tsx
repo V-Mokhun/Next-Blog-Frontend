@@ -6,13 +6,13 @@ import { SignUpForm } from "./SignUpForm";
 interface EmailContentProps {
   mode: AuthenticationMode;
   goBack: () => void;
-  closeModal: () => void;
+  handleRegister: () => void;
 }
 
 export const EmailContent = ({
   mode,
   goBack,
-  closeModal,
+  handleRegister,
 }: EmailContentProps) => {
   return (
     <div className="flex flex-1 flex-col justify-center h-full max-w-[70%] items-center my-5">
@@ -31,7 +31,7 @@ export const EmailContent = ({
       {mode === "login" ? (
         <LogInForm />
       ) : (
-        <SignUpForm closeModal={closeModal} />
+        <SignUpForm handleRegister={handleRegister} />
       )}
       <Button
         onClick={goBack}

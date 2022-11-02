@@ -13,7 +13,7 @@ export const Dialog = ({ children }: DialogProps) => {
       <RadixDialog.Overlay
         className={clsx(
           styles.overlay,
-          "bg-[#fffffff2] fixed top-0 left-0 right-0 bottom-0 grid place-items-center overflow-y-auto"
+          "bg-[#fffffff2] fixed top-0 left-0 right-0 bottom-0 z-dialog grid place-items-center overflow-y-auto"
         )}
       >
         <RadixDialog.Content className="my-auto bg-white p-7 rounded-md shadow-md relative flex flex-col items-center text-center justify-center min-w-[50%] min-h-[70%]">

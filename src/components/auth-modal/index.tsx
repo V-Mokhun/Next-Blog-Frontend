@@ -1,4 +1,6 @@
+import { AUTH_HOME_ROUTE } from "@/shared/lib";
 import { Button, Dialog, DialogRoot, Icon, Text, Title } from "@/shared/ui";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { EmailContent } from "./email-content";
 
@@ -14,20 +16,31 @@ export const AuthModal = ({ render }: AuthModalProps) => {
   const [open, setOpen] = useState(false);
   const [mode, setMode] = useState<AuthenticationMode>("login");
   const [isEmail, setIsEmail] = useState(false);
+  const router = useRouter();
 
   const goBack = () => {
     setIsEmail(false);
   };
 
-  const closeModal = () => {
+  const handleRegister = () => {
     setOpen(false);
+    router.push(AUTH_HOME_ROUTE);
+  };
+
+  const onOpenChange = (initialOpen: boolean) => {
+    setOpen(initialOpen);
+    setIsEmail(false);
   };
 
   return (
-    <DialogRoot open={open} onOpenChange={setOpen}>
+    <DialogRoot open={open} onOpenChange={onOpenChange}>
       <Dialog>
         {isEmail ? (
-          <EmailContent closeModal={closeModal} mode={mode} goBack={goBack} />
+          <EmailContent
+            handleRegister={handleRegister}
+            mode={mode}
+            goBack={goBack}
+          />
         ) : (
           <div className="flex flex-1 flex-col justify-between h-full items-center my-5">
             <Title

@@ -1,11 +1,13 @@
 import { SignUpValues, userApi } from "@/shared/api";
-import { Button, Input } from "@/shared/ui";
+import { Button, Input, Toast } from "@/shared/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { AxiosError } from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 interface SignUpFormProps {
-  closeModal: () => void;
+  handleRegister: () => void;
 }
 
 const schema = yup
@@ -27,78 +29,81 @@ const schema = yup
   })
   .required();
 
-export const SignUpForm = ({ closeModal }: SignUpFormProps) => {
+const inputs: { id: string; label: keyof SignUpValues }[] = [
+  {
+    id: "Your email",
+    label: "email",
+  },
+  {
+    id: "Your name",
+    label: "name",
+  },
+  {
+    id: "Your username",
+    label: "username",
+  },
+  {
+    id: "Your password",
+    label: "password",
+  },
+];
+
+export const SignUpForm = ({ handleRegister }: SignUpFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting,
-      isValid,
-      isSubmitted,
-      isSubmitSuccessful,
-    },
+    formState: { errors, isSubmitting, isValid, isSubmitted },
   } = useForm<SignUpValues>({
     resolver: yupResolver(schema),
   });
 
+  //! TOAST
+  const [error, setError] = useState("Network error");
+  const [toastOpen, setToastOpen] = useState(false);
+
   const onSubmit = async (data: SignUpValues) => {
-    await userApi.signUp(data);
+    try {
+      await userApi.signUp(data);
+      handleRegister();
+    } catch (err) {
+      if (typeof err === "string") {
+        setError(err);
+      } else if (err instanceof AxiosError) {
+        setError(err.message);
+      }
+    }
   };
 
-  // if (isSubmitSuccessful) {
-  //   closeModal();
-  // }
-
   return (
-    <form
-      className="text-center block w-full mb-5 max-w-[270px]"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="mb-4">
-        <Input
-          inputClassName="text-center"
-          register={register}
-          id="Your email"
-          label="email"
-          error={errors.email?.message}
-        />
-      </div>
-      <div className="mb-4">
-        <Input
-          inputClassName="text-center"
-          register={register}
-          id="Your name"
-          label="name"
-          error={errors.name?.message}
-        />
-      </div>
-      <div className="mb-4">
-        <Input
-          inputClassName="text-center"
-          register={register}
-          id="Your username"
-          label="username"
-          error={errors.username?.message}
-        />
-      </div>
-      <div className="mb-4">
-        <Input
-          inputClassName="text-center"
-          register={register}
-          type="password"
-          id="Your password"
-          label="password"
-          error={errors.password?.message}
-        />
-      </div>
-      <Button
-        isDisabled={isSubmitting || (isSubmitted && !isValid)}
-        type="submit"
-        className="block w-full"
+    <>
+      <form
+        className="text-center block w-full mb-5 max-w-[270px]"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        Sign up
-      </Button>
-    </form>
+        {inputs.map((input) => (
+          <div key={input.id} className="mb-4">
+            <Input
+              inputClassName="text-center"
+              register={register}
+              id={input.id}
+              label={input.label}
+              error={errors[input.label]?.message}
+              type={input.label === "password" ? "password" : "text"}
+            />
+          </div>
+        ))}
+        <Button
+          isDisabled={isSubmitting || (isSubmitted && !isValid)}
+          type="submit"
+          className="block w-full"
+        >
+          Sign up
+        </Button>
+      </form>
+      <button onClick={() => setToastOpen(true)}>open</button>
+      {toastOpen && (
+        <Toast open={toastOpen} setOpen={setToastOpen} title={error} />
+      )}
+    </>
   );
 };

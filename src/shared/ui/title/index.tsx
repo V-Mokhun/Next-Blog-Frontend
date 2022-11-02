@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { ElementType, HTMLAttributes } from "react";
+import React, { ElementType, HTMLAttributes } from "react";
 import styles from "./title.module.css";
 
 interface TitleProps extends HTMLAttributes<HTMLOrSVGElement> {
@@ -10,27 +10,30 @@ interface TitleProps extends HTMLAttributes<HTMLOrSVGElement> {
   weight?: "normal" | "medium" | "bold";
 }
 
-export const Title = ({
-  as: Tag = "h1",
-  children,
-  className,
-  size = "base",
-  weight = "bold",
-}: TitleProps) => {
-  const classes = clsx(className, {
-    [styles.title]: true,
-    "text-primary": true,
-    "font-normal": weight === "normal",
-    "font-medium": weight === "medium",
-    "font-bold": weight === "bold",
-    "text-xs": size === "xs",
-    "text-base": size === "small",
-    "text-2xl": size === "base",
-    "text-3xl": size === "medium",
-    "text-4xl mb-10": size === "large",
-    "text-5xl mb-10": size === "xl",
-    "text-[7vw] mb-10": size === "2xl",
-  });
+export const Title = React.forwardRef<HTMLElement, TitleProps>(
+  (
+    { as: Tag = "h1", children, className, size = "base", weight = "bold" },
+    ref
+  ) => {
+    const classes = clsx(className, {
+      [styles.title]: true,
+      "text-primary": true,
+      "font-normal": weight === "normal",
+      "font-medium": weight === "medium",
+      "font-bold": weight === "bold",
+      "text-xs": size === "xs",
+      "text-base": size === "small",
+      "text-2xl": size === "base",
+      "text-3xl": size === "medium",
+      "text-4xl mb-10": size === "large",
+      "text-5xl mb-10": size === "xl",
+      "text-[7vw] mb-10": size === "2xl",
+    });
 
-  return <Tag className={classes}>{children}</Tag>;
-};
+    return (
+      <Tag ref={ref} className={classes}>
+        {children}
+      </Tag>
+    );
+  }
+);

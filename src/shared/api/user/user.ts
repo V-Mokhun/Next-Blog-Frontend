@@ -1,4 +1,5 @@
 import { axiosInstance } from "../config";
+import { throwError } from "../lib";
 import { SignUpValues } from "./types";
 
 const REGISTER_URL = "/api/auth/local/register";
@@ -7,9 +8,9 @@ class UserApi {
   public async signUp(values: SignUpValues) {
     try {
       const response = await axiosInstance.post(REGISTER_URL, values);
-      console.log("RESPONSE REGISTER: ", response);
+      return response.data;
     } catch (error) {
-      console.log("ERROR REGISTER: ", error);
+      return throwError(error);
     }
   }
 }

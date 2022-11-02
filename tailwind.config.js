@@ -9,7 +9,10 @@ module.exports = {
         current: "currentColor",
         primary: "#292929", // rgb(41,41,41)
         secondary: "#757575", // rgb(117, 117, 117)
+        success: "#07bc0c",
         error: "#c94a4a",
+        info: "#3498db",
+        warning: "#f1c40f",
         dark: {
           400: "#191919", // rgb(25,25,25)
           500: "#080808", // rgb(8,8,8)
@@ -21,6 +24,10 @@ module.exports = {
       },
       screens: {
         xs: "479px",
+      },
+      zIndex: {
+        dialog: 100,
+        toast: 1000,
       },
     },
     fontFamily: {
