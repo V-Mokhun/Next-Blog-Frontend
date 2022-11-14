@@ -4,3 +4,20 @@ export interface SignUpValues {
   username: string;
   password: string;
 }
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  name: string;
+}
+
+export interface SignUpData {
+  jwt: string;
+  user: User;
+}

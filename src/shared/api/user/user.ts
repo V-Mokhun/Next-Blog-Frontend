@@ -1,14 +1,22 @@
-import { axiosInstance } from "../config";
+import { axiosLocalInstance } from "../config";
 import { throwError } from "../lib";
-import { SignUpValues } from "./types";
+import { SignUpData, SignUpValues } from "./types";
 
-const REGISTER_URL = "/api/auth/local/register";
+const USER_URL = "/api/user";
+
+const REGISTER_URL = `${USER_URL}/register`;
 
 class UserApi {
   public async signUp(values: SignUpValues) {
     try {
-      const response = await axiosInstance.post(REGISTER_URL, values);
-      return response.data;
+      const { data } = await axiosLocalInstance.post<SignUpData["user"]>(
+        REGISTER_URL,
+        values
+      );
+
+      console.log(data);
+
+      return data;
     } catch (error) {
       return throwError(error);
     }
