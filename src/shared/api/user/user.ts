@@ -1,10 +1,11 @@
 import { axiosLocalInstance } from "../config";
 import { throwError } from "../lib";
-import { SignUpData, SignUpValues } from "./types";
+import { LogInValues, SignUpData, SignUpValues } from "./types";
 
 const USER_URL = "/api/user";
 
 const REGISTER_URL = `${USER_URL}/register`;
+const LOGIN_URL = `${USER_URL}/login`;
 
 class UserApi {
   public async signUp(values: SignUpValues) {
@@ -14,7 +15,21 @@ class UserApi {
         values
       );
 
-      console.log(data);
+      return data;
+    } catch (error) {
+      return throwError(error);
+    }
+  }
+
+  public async login(values: LogInValues) {
+    try {
+      const { data } = await axiosLocalInstance.post<SignUpData["user"]>(
+        LOGIN_URL,
+        {
+          identifier: values.email,
+          password: values.password,
+        }
+      );
 
       return data;
     } catch (error) {

@@ -1,4 +1,4 @@
-import { axiosLocalInstance } from "@/shared/api";
+import { SITE_URL } from "@/shared/config";
 import { isTokenValid, parseJwt } from "@/shared/lib";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -10,7 +10,7 @@ const REFRESH_URL = "/api/user/refresh";
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-  url.pathname = "/";
+  url.pathname = "/logout";
 
   const nowUnix = (+new Date() / 1e3) | 0;
   const token = req.cookies?.get("high_token");
@@ -20,9 +20,10 @@ export async function middleware(req: NextRequest) {
   let tokenIsValid = isTokenValid(token);
 
   if (!tokenIsValid && !!token) {
-    const {
-      data: { token },
-    } = await axiosLocalInstance.get<{ token: string }>(REFRESH_URL);
+    const response = await fetch(`${SITE_URL}${REFRESH_URL}`);
+
+    const { token }: { token: string } = await response.json();
+
     const tokenDecoded = parseJwt(token)!;
 
     newResponse.cookies.set("high_token", token, {

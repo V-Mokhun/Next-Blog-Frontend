@@ -5,7 +5,7 @@ export type TokenGeneric = {
 
 export function parseJwt(token: string): TokenGeneric | null {
   try {
-    return JSON.parse(Buffer.from(token.split(".")[1], "base64").toString());
+    return JSON.parse(atob(token.split(".")[1]));
   } catch (e) {
     return null;
   }

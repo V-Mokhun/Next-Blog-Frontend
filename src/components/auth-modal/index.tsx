@@ -22,7 +22,7 @@ export const AuthModal = ({ render }: AuthModalProps) => {
     setIsEmail(false);
   };
 
-  const handleRegister = () => {
+  const handleAuthentication = () => {
     setOpen(false);
     router.push(AUTH_HOME_ROUTE);
   };
@@ -37,7 +37,7 @@ export const AuthModal = ({ render }: AuthModalProps) => {
       <Dialog>
         {isEmail ? (
           <EmailContent
-            handleRegister={handleRegister}
+            handleAuthentication={handleAuthentication}
             mode={mode}
             goBack={goBack}
           />

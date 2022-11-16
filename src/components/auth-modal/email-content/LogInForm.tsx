@@ -1,14 +1,14 @@
-import { Button, Input } from "@/shared/ui";
+import { LogInValues, userApi } from "@/shared/api";
+import { catchError } from "@/shared/lib";
+import { Button, Input, Toast } from "@/shared/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
-interface LogInFormProps {}
-
-type FormValues = {
-  email: string;
-  password: string;
-};
+interface LogInFormProps {
+  handleAuthentication: () => void;
+}
 
 const schema = yup
   .object({
@@ -24,48 +24,64 @@ const schema = yup
   })
   .required();
 
-export const LogInForm = ({}: LogInFormProps) => {
+export const LogInForm = ({ handleAuthentication }: LogInFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting, isValid, isSubmitted },
-  } = useForm<FormValues>({
+  } = useForm<LogInValues>({
     resolver: yupResolver(schema),
   });
+  const [error, setError] = useState("");
+  const [toastOpen, setToastOpen] = useState(false);
 
-  const onSubmit = (data: FormValues) => {};
+  const onSubmit = async (data: LogInValues) => {
+    try {
+      await userApi.login(data);
+      handleAuthentication();
+      setToastOpen(false);
+    } catch (err) {
+      catchError(err, setError);
+      setToastOpen(true);
+    }
+  };
 
   return (
-    <form
-      className="text-center block w-full mb-5 max-w-[270px]"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      <div className="mb-4">
-        <Input
-          inputClassName="text-center"
-          register={register}
-          id="Email"
-          label="email"
-          error={errors.email?.message}
-        />
-      </div>
-      <div className="mb-4">
-        <Input
-          inputClassName="text-center"
-          register={register}
-          type="password"
-          id="Password"
-          label="password"
-          error={errors.password?.message}
-        />
-      </div>
-      <Button
-        isDisabled={isSubmitting || (isSubmitted && !isValid)}
-        type="submit"
-        className="block w-full"
+    <>
+      <form
+        className="text-center block w-full mb-5 max-w-[270px]"
+        onSubmit={handleSubmit(onSubmit)}
       >
-        Log in
-      </Button>
-    </form>
+        <div className="mb-4">
+          <Input
+            inputClassName="text-center"
+            register={register}
+            id="Email"
+            label="email"
+            error={errors.email?.message}
+          />
+        </div>
+        <div className="mb-4">
+          <Input
+            inputClassName="text-center"
+            register={register}
+            type="password"
+            id="Password"
+            label="password"
+            error={errors.password?.message}
+          />
+        </div>
+        <Button
+          isDisabled={isSubmitting || (isSubmitted && !isValid)}
+          type="submit"
+          className="block w-full"
+        >
+          Log in
+        </Button>
+      </form>
+      {toastOpen && (
+        <Toast open={toastOpen} setOpen={setToastOpen} title={error} />
+      )}
+    </>
   );
 };

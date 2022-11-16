@@ -2,7 +2,7 @@ import { axiosInstance } from "@/shared/api";
 import { parseJwt } from "@/shared/lib";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const REFRESH_URL = "/auth/refreshToken";
+const REFRESH_URL = "/api/auth/refreshToken";
 
 export default async function refresh(
   req: NextApiRequest,

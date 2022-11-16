@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 interface SignUpFormProps {
-  handleRegister: () => void;
+  handleAuthentication: () => void;
 }
 
 const schema = yup
@@ -48,7 +48,7 @@ const inputs: { id: string; label: keyof SignUpValues }[] = [
   },
 ];
 
-export const SignUpForm = ({ handleRegister }: SignUpFormProps) => {
+export const SignUpForm = ({ handleAuthentication }: SignUpFormProps) => {
   const {
     register,
     handleSubmit,
@@ -63,7 +63,7 @@ export const SignUpForm = ({ handleRegister }: SignUpFormProps) => {
   const onSubmit = async (data: SignUpValues) => {
     try {
       await userApi.signUp(data);
-      handleRegister();
+      handleAuthentication();
       setToastOpen(false);
     } catch (err) {
       catchError(err, setError);

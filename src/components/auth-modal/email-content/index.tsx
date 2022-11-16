@@ -6,13 +6,13 @@ import { SignUpForm } from "./SignUpForm";
 interface EmailContentProps {
   mode: AuthenticationMode;
   goBack: () => void;
-  handleRegister: () => void;
+  handleAuthentication: () => void;
 }
 
 export const EmailContent = ({
   mode,
   goBack,
-  handleRegister,
+  handleAuthentication,
 }: EmailContentProps) => {
   return (
     <div className="flex flex-1 flex-col justify-center h-full max-w-[70%] items-center my-5">
@@ -29,9 +29,9 @@ export const EmailContent = ({
           : "Enter your email address, name, username and password to create an account."}
       </Text>
       {mode === "login" ? (
-        <LogInForm />
+        <LogInForm handleAuthentication={handleAuthentication} />
       ) : (
-        <SignUpForm handleRegister={handleRegister} />
+        <SignUpForm handleAuthentication={handleAuthentication} />
       )}
       <Button
         onClick={goBack}

@@ -5,6 +5,11 @@ export interface SignUpValues {
   password: string;
 }
 
+export interface LogInValues {
+  email: string;
+  password: string;
+}
+
 export interface User {
   id: number;
   username: string;
