@@ -1,10 +1,11 @@
 import { axiosInstance, SignUpData } from "@/shared/api";
-import { parseJwt } from "@/shared/lib";
+import { API_GOOGLE_CALLBACK, parseJwt } from "@/shared/lib";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const LOGIN_URL = "/api/auth/local";
-
-export default async function login(req: NextApiRequest, res: NextApiResponse) {
+export default async function googleCallback(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { method, body } = req;
 
   if (method !== "POST") {
@@ -12,8 +13,9 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const { data } = await axiosInstance.post<SignUpData>(LOGIN_URL, body);
-
+    const { data } = await axiosInstance.get<SignUpData>(
+      `${API_GOOGLE_CALLBACK}?access_token=123${body.access_token}`
+    );
     const nowUnix = (+new Date() / 1e3) | 0;
 
     const tokenDecoded = parseJwt(data.jwt)!;
@@ -23,7 +25,7 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     ]);
 
     return res.status(201).json(data.user);
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json("Something went wrong..");
   }
 }

@@ -1,16 +1,20 @@
-import { AUTH_HOME_ROUTE } from "@/shared/lib";
+import {
+  AUTH_HOME_ROUTE,
+  REDIRECT_FACEBOOK_ROUTE,
+  REDIRECT_GOOGLE_ROUTE,
+} from "@/shared/lib";
 import { Button, Dialog, DialogRoot, Icon, Text, Title } from "@/shared/ui";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { EmailContent } from "./email-content";
 
+export type AuthenticationMode = "login" | "register";
+
 interface AuthModalProps {
   render?: (
-    setMode: React.Dispatch<React.SetStateAction<"login" | "register">>
+    setMode: React.Dispatch<React.SetStateAction<AuthenticationMode>>
   ) => React.ReactNode;
 }
-
-export type AuthenticationMode = "login" | "register";
 
 export const AuthModal = ({ render }: AuthModalProps) => {
   const [open, setOpen] = useState(false);
@@ -51,53 +55,34 @@ export const AuthModal = ({ render }: AuthModalProps) => {
               {mode === "login" ? "Welcome back." : "Join High."}
             </Title>
             <div className="flex flex-col max-w-[250] justify-center items-center gap-2">
-              {mode === "login" ? (
-                <>
-                  <Button
-                    className="flex items-center gap-1 flex-1 w-full"
-                    variant="outline"
-                  >
-                    <Icon name="google" /> Sign in with Google
-                  </Button>
-                  <Button
-                    className="flex items-center gap-1 flex-1 w-full"
-                    variant="outline"
-                  >
-                    <Icon name="facebook" className="fill-blue-800" /> Sign in
-                    with Facebook
-                  </Button>
-                  <Button
-                    className="flex items-center gap-1 flex-1 w-full"
-                    variant="outline"
-                    onClick={() => setIsEmail(true)}
-                  >
-                    <Icon name="email" /> Sign in with Email
-                  </Button>
-                </>
-              ) : (
-                <>
-                  <Button
-                    className="flex items-center gap-1 flex-1 w-full"
-                    variant="outline"
-                  >
-                    <Icon name="google" /> Sign up with Google
-                  </Button>
-                  <Button
-                    className="flex items-center gap-1 flex-1 w-full"
-                    variant="outline"
-                  >
-                    <Icon name="facebook" className="fill-blue-800" /> Sign up
-                    with Facebook
-                  </Button>
-                  <Button
-                    className="flex items-center gap-1 flex-1 w-full"
-                    variant="outline"
-                    onClick={() => setIsEmail(true)}
-                  >
-                    <Icon name="email" /> Sign up with Email
-                  </Button>
-                </>
-              )}
+              <>
+                <Button
+                  className="flex items-center gap-1 flex-1 w-full"
+                  variant="outline"
+                  as="link"
+                  href={REDIRECT_GOOGLE_ROUTE}
+                >
+                  <Icon name="google" /> Sign {mode === "login" ? "in" : "up"}{" "}
+                  with Google
+                </Button>
+                <Button
+                  className="flex items-center gap-1 flex-1 w-full"
+                  variant="outline"
+                  as="link"
+                  href={REDIRECT_FACEBOOK_ROUTE}
+                >
+                  <Icon name="facebook" className="fill-blue-800" /> Sign{" "}
+                  {mode === "login" ? "in" : "up"} with Facebook
+                </Button>
+                <Button
+                  className="flex items-center gap-1 flex-1 w-full"
+                  variant="outline"
+                  onClick={() => setIsEmail(true)}
+                >
+                  <Icon name="email" /> Sign {mode === "login" ? "in" : "up"}{" "}
+                  with Email
+                </Button>
+              </>
             </div>
             {mode === "login" ? (
               <Text>

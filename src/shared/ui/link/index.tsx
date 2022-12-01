@@ -40,8 +40,8 @@ export const Link = ({
   }
 
   return (
-    <NextLink {...(props as NextLinkProps)}>
-      <a className={classes}>{children}</a>
+    <NextLink className={classes} {...(props as NextLinkProps)}>
+      {children}
     </NextLink>
   );
 };

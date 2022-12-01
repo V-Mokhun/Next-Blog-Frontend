@@ -10,6 +10,8 @@ export interface LogInValues {
   password: string;
 }
 
+export type SocialMedia = "google" | "facebook";
+
 export interface User {
   id: number;
   username: string;
@@ -19,7 +21,7 @@ export interface User {
   blocked: boolean;
   createdAt: string;
   updatedAt: string;
-  name: string;
+  name: string | null;
 }
 
 export interface SignUpData {

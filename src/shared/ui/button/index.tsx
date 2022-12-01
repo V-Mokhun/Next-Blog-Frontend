@@ -77,10 +77,11 @@ export const Button = React.forwardRef<
     if (as === "link") {
       return (
         <Link
+          className={classes}
           ref={ref as ForwardedRef<HTMLAnchorElement>}
           {...(props as LinkProps)}
         >
-          <a className={classes}>{children}</a>
+          {children}
         </Link>
       );
     }

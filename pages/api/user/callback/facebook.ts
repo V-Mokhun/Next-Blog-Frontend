@@ -1,10 +1,11 @@
 import { axiosInstance, SignUpData } from "@/shared/api";
-import { parseJwt } from "@/shared/lib";
+import { API_FACEBOOK_CALLBACK, parseJwt } from "@/shared/lib";
 import { NextApiRequest, NextApiResponse } from "next";
 
-const LOGIN_URL = "/api/auth/local";
-
-export default async function login(req: NextApiRequest, res: NextApiResponse) {
+export default async function facebookCallback(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const { method, body } = req;
 
   if (method !== "POST") {
@@ -12,7 +13,10 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const { data } = await axiosInstance.post<SignUpData>(LOGIN_URL, body);
+    const { data } = await axiosInstance.get<SignUpData>(
+      `${API_FACEBOOK_CALLBACK}?access_token=${body.access_token}`
+    );
+    console.log("FACEBOOK DATA: ", data);
 
     const nowUnix = (+new Date() / 1e3) | 0;
 
